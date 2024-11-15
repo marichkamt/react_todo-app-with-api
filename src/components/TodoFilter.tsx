@@ -12,38 +12,19 @@ export const TodoFilter: React.FC<Props> = ({
 }) => {
   return (
     <nav className="filter" data-cy="Filter">
-      <a
-        href="#/"
-        className={classNames('filter__link', {
-          selected: filterSelected === FilteredTodos.all,
-        })}
-        onClick={() => setFilterSelected(FilteredTodos.all)}
-        data-cy="FilterLinkAll"
-      >
-        {FilteredTodos.all}
-      </a>
-
-      <a
-        href="#/"
-        className={classNames('filter__link', {
-          selected: filterSelected === FilteredTodos.active,
-        })}
-        onClick={() => setFilterSelected(FilteredTodos.active)}
-        data-cy="FilterLinkActive"
-      >
-        {FilteredTodos.active}
-      </a>
-
-      <a
-        href="#/"
-        className={classNames('filter__link', {
-          selected: filterSelected === FilteredTodos.completed,
-        })}
-        onClick={() => setFilterSelected(FilteredTodos.completed)}
-        data-cy="FilterLinkCompleted"
-      >
-        {FilteredTodos.completed}
-      </a>
+      {Object.values(FilteredTodos).map(filter => (
+        <a
+          href="#/"
+          key={filter}
+          className={classNames('filter__link', {
+            selected: filterSelected === filter,
+          })}
+          onClick={() => setFilterSelected(filter)}
+          data-cy={`FilterLink${filter.charAt(0).toUpperCase() + filter.slice(1)}`}
+        >
+          {filter}
+        </a>
+      ))}
     </nav>
   );
 };

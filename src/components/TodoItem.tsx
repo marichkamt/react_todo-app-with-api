@@ -19,9 +19,10 @@ export const TodoItem: React.FC<Props> = ({
   loadingTodosIds,
   setLoadingTodosIds,
 }) => {
-  const { title, completed } = todo;
+  const { title, completed, id } = todo;
   const [editTodo, setEditTodo] = useState<Todo | null>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const handleDeleteTodo = (id: number) => {
     setLoadingTodosIds([...loadingTodosIds, todo.id]);
 
@@ -31,18 +32,18 @@ export const TodoItem: React.FC<Props> = ({
   };
 
   const handleChangeCheckbox = () => {
-    setLoadingTodosIds([...loadingTodosIds, todo.id]);
+    setLoadingTodosIds([...loadingTodosIds, id]);
 
     const changeValue = {
       completed: !completed,
     };
 
-    updtTodo(todo.id, changeValue).finally(() =>
-      setLoadingTodosIds(loadingTodosIds.filter(ids => ids !== todo.id)),
+    updtTodo(id, changeValue).finally(() =>
+      setLoadingTodosIds(loadingTodosIds.filter(ids => ids !== id)),
     );
   };
 
-  const isTodoLoading = loadingTodosIds.includes(todo.id);
+  const isTodoLoading = loadingTodosIds.includes(id);
 
   const handleOnDoubleClick = () => {
     setEditTodo(todo);
@@ -85,7 +86,7 @@ export const TodoItem: React.FC<Props> = ({
             type="button"
             className="todo__remove"
             data-cy="TodoDelete"
-            onClick={() => handleDeleteTodo(todo.id)}
+            onClick={() => handleDeleteTodo(id)}
           >
             ×
           </button>
